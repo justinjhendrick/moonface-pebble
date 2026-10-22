@@ -1,6 +1,7 @@
 # Pebble Night Heron Watchface
 
-Name inspiration: https://en.wikipedia.org/wiki/Black-crowned_night_heron
+* Name inspiration: https://en.wikipedia.org/wiki/Black-crowned_night_heron
+* Moon Images from https://commons.wikimedia.org/wiki/File:Lunar_libration_with_phase_Oct_2007.gif
 
 ## Screenshots
 
