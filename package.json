@@ -1,12 +1,12 @@
 {
-  "name": "moonface",
+  "name": "Night Heron",
   "author": "justinjhendrick",
   "version": "1.0.0",
   "keywords": ["pebble-watchface"],
   "private": true,
   "dependencies": {},
   "pebble": {
-    "displayName": "moonface",
+    "displayName": "Night Heron",
     "uuid": "ed6f98d1-99cf-428a-abe8-41c76641eb9c",
     "sdkVersion": "3",
     "enableMultiJS": true,
