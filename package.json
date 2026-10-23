@@ -2,7 +2,11 @@
   "name": "Night Heron",
   "author": "justinjhendrick",
   "version": "1.0.0",
-  "keywords": ["pebble-watchface"],
+  "keywords": [
+    "moon",
+    "lunar",
+    "pebble-watchface"
+  ],
   "private": true,
   "dependencies": {},
   "pebble": {

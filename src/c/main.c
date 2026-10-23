@@ -2,7 +2,7 @@
 
 #define NUM_FRAMES (59)
 #define DEBUG_BBOX (false)
-#define DEBUG_TIME (true)
+#define DEBUG_TIME (false)
 #define DEBUG_FRAME (false)
 #define BUFFER_LEN (40)
 
