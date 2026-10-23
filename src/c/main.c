@@ -39,6 +39,34 @@ static void draw_text(
   graphics_draw_text(ctx, buffer, font, fixed_bbox, GTextOverflowModeWordWrap, align, NULL);
 }
 
+static void draw_text_bordered(
+    GContext* ctx,
+    const char* buffer,
+    GFont font,
+    GRect bbox,
+    GTextAlignment align,
+    int shift_up
+  ) {
+  int b = 2;
+  int x = bbox.origin.x;
+  int y = bbox.origin.y;
+  int w = bbox.size.w;
+  int h = bbox.size.h;
+
+  graphics_context_set_text_color(ctx, GColorBlack);
+  draw_text(ctx, buffer, font, GRect(x - b, y - b, w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x + b, y - b, w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x - b, y + b, w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x + b, y + b, w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x    , y - b, w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x    , y + b, w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x - b, y    , w, h), align, shift_up);
+  draw_text(ctx, buffer, font, GRect(x + b, y    , w, h), align, shift_up);
+
+  graphics_context_set_text_color(ctx, GColorYellow);
+  draw_text(ctx, buffer, font, bbox, align, shift_up);
+}
+
 int moon_phase_frame_idx(time_t t) {
   // https://github.com/signetica/MoonPhase
   const int MOON_SYNODIC_PERIOD = 2953;      // Period of moon cycle in centidays.
@@ -49,7 +77,6 @@ int moon_phase_frame_idx(time_t t) {
 }
 
 static void draw_time(GContext* ctx, struct tm* now, GPoint center, int radius) {
-  graphics_context_set_text_color(ctx, GColorYellow);
   GRect full = rect_from_midpoint(center, GSize(radius * 2, radius * 2));
   int x = full.origin.x;
   int y = full.origin.y;
@@ -71,9 +98,9 @@ static void draw_time(GContext* ctx, struct tm* now, GPoint center, int radius) 
   int hour = now->tm_hour;
   if (clock_is_24h_style()) {
     snprintf(t, BUFFER_LEN, "%d", hour / 10);
-    draw_text(ctx, t, s_font_lg, tl, GTextAlignmentRight, hours_shift_up);
+    draw_text_bordered(ctx, t, s_font_lg, tl, GTextAlignmentRight, hours_shift_up);
     snprintf(t, BUFFER_LEN, "%d", hour % 10);
-    draw_text(ctx, t, s_font_lg, tr, GTextAlignmentLeft, hours_shift_up);
+    draw_text_bordered(ctx, t, s_font_lg, tr, GTextAlignmentLeft, hours_shift_up);
   } else {
     hour = hour % 12;
     if (hour == 0) {
@@ -81,19 +108,19 @@ static void draw_time(GContext* ctx, struct tm* now, GPoint center, int radius) 
     }
     if (hour / 10 != 0) {
       snprintf(t, BUFFER_LEN, "%d", hour / 10);
-      draw_text(ctx, t, s_font_lg, tl, GTextAlignmentRight, hours_shift_up);
+      draw_text_bordered(ctx, t, s_font_lg, tl, GTextAlignmentRight, hours_shift_up);
     }
     snprintf(t, BUFFER_LEN, "%d", hour % 10);
-    draw_text(ctx, t, s_font_lg, tr, GTextAlignmentLeft, hours_shift_up);
+    draw_text_bordered(ctx, t, s_font_lg, tr, GTextAlignmentLeft, hours_shift_up);
   }
 
   // minutes on bottom
   int minutes_shift_up = 12;
   int minute = now->tm_min;
   snprintf(t, BUFFER_LEN, "%d", minute / 10);
-  draw_text(ctx, t, s_font_lg, bl, GTextAlignmentRight, minutes_shift_up);
+  draw_text_bordered(ctx, t, s_font_lg, bl, GTextAlignmentRight, minutes_shift_up);
   snprintf(t, BUFFER_LEN, "%d", minute % 10);
-  draw_text(ctx, t, s_font_lg, br, GTextAlignmentLeft, minutes_shift_up);
+  draw_text_bordered(ctx, t, s_font_lg, br, GTextAlignmentLeft, minutes_shift_up);
 }
 
 static void draw_date(GContext* ctx, GRect bounds, int date_height, struct tm* now) {
