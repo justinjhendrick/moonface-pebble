@@ -19,6 +19,10 @@ Attribution:
 
 ![screenshot](screenshots_emery.gif)
 
+### Gabbro
+
+![screenshot](screenshots_gabbro.gif)
+
 ## License
 
 [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]

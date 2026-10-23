@@ -58,7 +58,7 @@ def run(platforms: list[str]) -> int:
 
 
 def main() -> int:
-    return run(["emery"])
+    return run(["emery", "gabbro"])
 
 
 if __name__ == "__main__":

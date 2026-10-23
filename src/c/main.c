@@ -5,6 +5,7 @@
 #define DEBUG_TIME (false)
 #define DEBUG_FRAME (false)
 #define BUFFER_LEN (40)
+#define ROUND (PBL_IF_ROUND_ELSE(true, false))
 
 static Window* s_window;
 static Layer* s_layer;
@@ -129,9 +130,6 @@ static void draw_time(GContext* ctx, struct tm* now, GPoint center, int radius) 
 }
 
 static void draw_date(GContext* ctx, GRect bounds, int date_height, struct tm* now) {
-  if (date_height == 0) {
-    return;
-  }
   GRect date_bbox = GRect(
     bounds.origin.x,
     bounds.origin.y + bounds.size.h - date_height,
@@ -164,7 +162,6 @@ static void update_layer(Layer* layer, GContext* ctx) {
     t += extra;
   }
   int new_frame_idx = moon_phase_frame_idx(t);
-  int date_height = 28;
   APP_LOG(APP_LOG_LEVEL_DEBUG, "new_frame_idx %d", new_frame_idx);
   if (s_frame_idx != new_frame_idx) {
     s_frame_idx = new_frame_idx;
@@ -175,12 +172,27 @@ static void update_layer(Layer* layer, GContext* ctx) {
     s_bitmap = gbitmap_create_with_resource(s_frame_idx + 1);
   }
 
-  GRect main = GRect(
-    bounds.origin.x,
-    bounds.origin.y,
-    bounds.size.h - date_height,
-    bounds.size.w
-  );
+  const int image_size = 200;
+  GRect main;
+  if (ROUND) {
+    // gabbro
+    const int total_size = 260;
+    const int inset = (total_size - image_size) / 2;
+    main = GRect(
+      bounds.origin.x + inset,
+      bounds.origin.y + inset,
+      image_size,
+      image_size
+    );
+  } else {
+    // emery
+    main = GRect(
+      bounds.origin.x,
+      bounds.origin.y,
+      image_size,
+      image_size
+    );
+  }
   graphics_context_set_compositing_mode(ctx, GCompOpSet);
   graphics_draw_bitmap_in_rect(ctx, s_bitmap, main);
 
@@ -191,7 +203,9 @@ static void update_layer(Layer* layer, GContext* ctx) {
     now->tm_min = 34;
   }
   draw_time(ctx, now, grect_center_point(&main), 70);
-  draw_date(ctx, bounds, date_height, now);
+  if (!ROUND) {
+    draw_date(ctx, bounds, 28, now);
+  }
 }
 
 static void window_load(Window* window) {
