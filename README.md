@@ -7,7 +7,7 @@
 
 ### Emery
 
-![screenshot](screenshot_emery.png)
+![screenshot](screenshots_emery.gif)
 
 ## License
 

@@ -1,3 +1,4 @@
 *.swp
 build/
 *.lock*
+screenshot*.png
