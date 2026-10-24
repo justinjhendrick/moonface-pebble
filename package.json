@@ -1,16 +1,19 @@
 {
-  "name": "Night Heron",
+  "name": "Crescent Clock",
   "author": "justinjhendrick",
   "version": "1.0.0",
   "keywords": [
     "moon",
     "lunar",
+    "crescent",
+    "night",
+    "nocturnal",
     "pebble-watchface"
   ],
   "private": true,
   "dependencies": {},
   "pebble": {
-    "displayName": "Night Heron",
+    "displayName": "Crescent Clock",
     "uuid": "ed6f98d1-99cf-428a-abe8-41c76641eb9c",
     "sdkVersion": "3",
     "enableMultiJS": true,

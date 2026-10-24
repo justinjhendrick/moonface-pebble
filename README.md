@@ -1,6 +1,6 @@
-# Pebble Night Heron Watchface
+# Pebble Crescent Clock Watchface
 
-Night Heron is a lunar phase tracker with large digital time overlaid on an image of the moon that waxes and wanes
+Crescent Clock is a lunar phase tracker with large digital time overlaid on an image of the moon that waxes and wanes
 
 Features:
 * Date included as a row across the bottom
@@ -8,7 +8,6 @@ Features:
 * Effects of lunar libration are included
 * View of the moon simulated from the center of the earth
 * Moon images from https://commons.wikimedia.org/wiki/File:Lunar_libration_with_phase_Oct_2007.gif
-* Name inspiration from https://en.wikipedia.org/wiki/Black-crowned_night_heron
 
 Attribution:
 * Thanks to Coji Morishita for the M PLUS U font
