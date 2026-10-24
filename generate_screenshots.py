@@ -9,6 +9,9 @@ import subprocess
 THIS_DIR = Path(__file__).absolute().parent
 
 
+def convert(*args: str):
+    subprocess.check_call(["convert"] + list(args))
+
 def pebble(*args: str):
     subprocess.check_call(["pebble"] + list(args))
 
@@ -40,18 +43,12 @@ def run(platforms: list[str]) -> int:
     # Combine all the pngs into one gif with ImageMagick
     # https://joeldare.com/combining-multiple-images-into-an-animated-gif-with-imagemagick
     for platform, fnames in screenshot_fnames.items():
-        subprocess.check_call(
-            [
-                "convert",
-                "-delay",
-                "10",
-                "-loop",
-                "0",
-                "-dispose",
-                "previous",
-                *fnames,
-                f"screenshots_{platform}.gif",
-            ]
+        convert(
+            *fnames,
+            "-delay", "10",
+            "-loop", "0",
+            "-dispose", "previous",
+            f"screenshots_{platform}.gif",
         )
 
     return 0

@@ -6,10 +6,16 @@ def convert(*args: str) -> None:
     subprocess.check_call(["convert"] + list(args))
 
 def main(gif: Path) -> None:
-    convert("-coalesce", str(gif), "frame%03d.png")
-    for frame in Path(".").glob("frame*.png"):
-        convert("-shave", "21x22", str(frame), str(frame))
-        convert("-resize", "200x200", str(frame), str(frame))
+    convert(
+        str(gif),
+        "-coalesce",
+        "-shave", "21x22",
+        "-resize", "200x200",
+        "-colorspace", "gray",
+        "-level", "0,70%",
+        "-posterize", "4",
+        "frame%03d.png",
+    )
 
 if __name__ == "__main__":
     main(Path(sys.argv[1]).resolve())
